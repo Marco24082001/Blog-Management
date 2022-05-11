@@ -8,3 +8,6 @@ from django.core.paginator import PageNotAnInteger, EmptyPage, Paginator
 
 def home(request):
     return render(request, 'index.html')
+
+def category_blog(request):
+    return render(request, 'category_blog.html')

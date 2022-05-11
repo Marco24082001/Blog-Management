@@ -5,4 +5,5 @@ from .views import *
 
 urlpatterns = [
     path('', home, name=''),
+    path('category', category_blog, name='category'),
 ]
