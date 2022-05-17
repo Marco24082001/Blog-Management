@@ -35,14 +35,50 @@ def home(request):
 
     return render(request, 'index.html', context)
 
-def category_blog(request):
-    return render(request, 'category_blog.html')
+def category_blogs(request, slug):
+    category = get_object_or_404(Category, slug=slug)
+    queryset = category.category_blog.all()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, 6)
+    
+    try:
+        blogs = paginator.page(page)
+    except EmptyPage:
+        blogs = paginator.page(1)
+    except PageNotAnInteger:
+        blogs = paginator.page(1)
+        return redirect('blogs')
+
+    context = {
+        'category': category.title,
+        'blogs': blogs,
+    }
+    return render(request, 'category_blog.html', context)
+
+def tag_blogs(request, slug):
+    tag = get_object_or_404(Tag, slug=slug)
+    queryset = tag.tag_blogs.all()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, 6)
+    
+    try:
+        blogs = paginator.page(page)
+    except EmptyPage:
+        blogs = paginator.page(1)
+    except PageNotAnInteger:
+        blogs = paginator.page(1)
+        return redirect('blogs')
+
+    context = {
+        'tag': tag.title,
+        'blogs': blogs,
+    }
+    return render(request, 'tag_blog.html', context)
 
 def blog_list(request):
     queryset = Blog.objects.order_by('-created_date')
     page = request.GET.get('page', 1)
-    recent_blogs = queryset[:3]
-    paginator = Paginator(queryset, 4)
+    paginator = Paginator(queryset, 6)
     try:
         blogs = paginator.page(page)
     except EmptyPage:
@@ -52,7 +88,38 @@ def blog_list(request):
         return redirect('blog')
 
     context = {
-        'recent_blogs': recent_blogs,
         'blogs': blogs
     }
     return render(request, 'blog_list.html', context)
+
+def search_blogs(request):
+    search_key = request.GET.get('search', None)
+    page = request.GET.get('page', 1)
+    print(page)
+    print(search_key)
+    if search_key:
+        queryset = Blog.objects.filter(
+            Q(title__icontains=search_key) |
+            Q(category__title__icontains=search_key) |
+            Q(user__username__icontains=search_key) |
+            Q(tags__title__icontains=search_key)
+        ).distinct()
+
+        paginator = Paginator(queryset, 6)
+        try:
+            blogs = paginator.page(page)
+        except EmptyPage:
+            blogs = paginator.page(1)
+        except PageNotAnInteger:
+            blogs = paginator.page(1)
+            return redirect('home')
+
+        context = {
+            "blogs": blogs,
+            "search_key": search_key
+        }
+
+        return render(request, 'search_blog.html', context)
+
+    else:
+        return redirect('home')

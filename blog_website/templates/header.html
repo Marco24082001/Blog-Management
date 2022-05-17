@@ -36,12 +36,9 @@
                                     </div>
                                 </div><!-- end mega-menu-content -->
                             </li> {% endcomment %}
-                            <li><a class="dropdown-item" href="#">Technology</a></li>
-                            <li><a class="dropdown-item" href="#">Food & Drink</a></li>
-                            <li><a class="dropdown-item" href="#">Travel</a></li>
-                            <li><a class="dropdown-item" href="#">Lifestyle</a></li>
-                            <li><a class="dropdown-item" href="#">Fashion</a></li>
-                            <li><a class="dropdown-item" href="#">Health beauty</a></li>
+                            {% for category in categories %}
+                            <li><a class="dropdown-item" href="{% url 'category' category.slug %}">{{category.title}}</a></li>
+                            {% endfor %}
                             <li><hr class="dropdown-divider"></li>  
                         </ul>
                     </li>
