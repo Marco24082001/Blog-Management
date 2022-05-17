@@ -7,29 +7,16 @@
                     <h2 class="widget-title">Recent Posts</h2>
                     <div class="blog-list-widget">
                         <div class="list-group">
+                            {% for blog in recent_blogs %}
                             <a href="single.html" class="list-group-item list-group-item-action flex-column align-items-start">
                                 <div class="w-100 justify-content-between">
-                                    <img src="{% static 'upload/blog_square_01.jpg' %}" alt="" class="img-fluid float-left">
-                                    <h5 class="mb-1">5 Beautiful buildings you need to before dying</h5>
-                                    <small>12 Jan, 2016</small>
+                                    <img src="{{blog.banner.url}}" alt="" class="img-fluid float-left">
+                                    <h5 class="mb-1">{{blog.title}}</h5>
+                                    <small>{{blog.created_date}}</small>
                                 </div>
                             </a>
 
-                            <a href="single.html" class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="w-100 justify-content-between">
-                                    <img src="{% static 'upload/blog_square_02.jpg' %}" alt="" class="img-fluid float-left">
-                                    <h5 class="mb-1">Let's make an introduction for creative life</h5>
-                                    <small>11 Jan, 2016</small>
-                                </div>
-                            </a>
-
-                            <a href="single.html" class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="w-100 last-item justify-content-between">
-                                    <img src="{% static 'upload/blog_square_03.jpg' %}" alt="" class="img-fluid float-left">
-                                    <h5 class="mb-1">Did you see the most beautiful sea in the world?</h5>
-                                    <small>07 Jan, 2016</small>
-                                </div>
-                            </a>
+                            {% endfor %}
                         </div>
                     </div><!-- end blog-list -->
                 </div><!-- end widget -->
@@ -40,10 +27,11 @@
                     <h2 class="widget-title">Popular Posts</h2>
                     <div class="blog-list-widget">
                         <div class="list-group">
+                            {% for blog in popular_blogs %}
                             <a href="single.html" class="list-group-item list-group-item-action flex-column align-items-start">
                                 <div class="w-100 justify-content-between">
-                                    <img src="{% static 'upload/blog_square_04.jpg' %}" alt="" class="img-fluid float-left">
-                                    <h5 class="mb-1">Banana-chip chocolate cake recipe with customs</h5>
+                                    <img src="{{blog.banner.url}}" alt="" class="img-fluid float-left">
+                                    <h5 class="mb-1">{{blog.title}}</h5>
                                     <span class="rating">
                                         <i class="fa fa-star"></i>
                                         <i class="fa fa-star"></i>
@@ -53,34 +41,7 @@
                                     </span>
                                 </div>
                             </a>
-
-                            <a href="single.html" class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="w-100 justify-content-between">
-                                    <img src="{% static 'upload/blog_square_07.jpg' %}" alt="" class="img-fluid float-left">
-                                    <h5 class="mb-1">10 practical ways to choose organic vegetables</h5>
-                                    <span class="rating">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </span>
-                                </div>
-                            </a>
-
-                            <a href="single.html" class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="w-100 last-item justify-content-between">
-                                    <img src="{% static 'upload/blog_square_06.jpg' %}" alt="" class="img-fluid float-left">
-                                    <h5 class="mb-1">We are making homemade ravioli, nice and good</h5>
-                                    <span class="rating">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </span>
-                                </div>
-                            </a>
+                            {% endfor %}
                         </div>
                     </div><!-- end blog-list -->
                 </div><!-- end widget -->
@@ -91,13 +52,10 @@
                     <h2 class="widget-title">Popular Categories</h2>
                     <div class="link-widget">
                         <ul>
-                            <li><a href="#">Fahsion <span>(21)</span></a></li>
-                            <li><a href="#">Lifestyle <span>(15)</span></a></li>
-                            <li><a href="#">Art & Design <span>(31)</span></a></li>
-                            <li><a href="#">Health Beauty <span>(22)</span></a></li>
-                            <li><a href="#">Clothing <span>(66)</span></a></li>
-                            <li><a href="#">Entertaintment <span>(11)</span></a></li>
-                            <li><a href="#">Food & Drink <span>(87)</span></a></li>
+                            {% for category in categories %}
+                            <li><a href="#">{{category.title}}</a></li>
+                            
+                            {% endfor %}
                         </ul>
                     </div><!-- end link-widget -->
                 </div><!-- end widget -->
