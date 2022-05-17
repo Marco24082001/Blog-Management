@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
 from django.core.paginator import PageNotAnInteger, EmptyPage, Paginator
+from django.views.generic import DetailView
 from .models import *
 # Create your views here.
 
@@ -123,3 +124,10 @@ def search_blogs(request):
 
     else:
         return redirect('home')
+
+class BlogDetailView(DetailView):
+    model = Blog
+    template_name = 'detail_blog.html'
+    context_object_name = 'blog'
+    # def get_object(self, query_set=None):
+    #     return Blog.objects.get(slug=self.kwargs.get('slug'))
