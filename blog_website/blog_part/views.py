@@ -1,3 +1,4 @@
+from multiprocessing import context
 from turtle import right
 from unicodedata import category
 from django.http import JsonResponse
@@ -173,4 +174,88 @@ def create_blog(request):
         "form": form
     }
     return render(request, 'create_blog.html', context)
+
+def detete_blog(request, slug):
+    blog = get_object_or_404(Blog, slug=slug)
+
+    pass
+
+def my_blog(request, pk):
+    account = get_object_or_404(User, pk=pk)
+    queryset = account.user_blog.all()
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, 6)
+
+    delete = request.GET.get('delete', None)
+
+    if delete:
+        blog = get_object_or_404(Blog, pk = delete)
+        if request.user.pk != blog.user.pk:
+            return redirect('home')
+        blog.delete()
+        messages.success(request, 'Your blog has been deleted !')
+        return redirect('my_blogs', pk = account.pk )
     
+    try:
+        blogs = paginator.page(page)
+    except EmptyPage:
+        blogs = paginator.page(1)
+    except PageNotAnInteger:
+        blogs = paginator.page(1)
+        return redirect('blogs')
+
+    context = {
+        'blogs' : blogs,
+        'account' : account,
+    }
+    return render(request, 'my_blogs.html', context)
+    
+def update_blog(request, slug):
+    blog = get_object_or_404(Blog, slug=slug)
+    form = CreateBlogForm(instance=blog)
+
+    if request.method == "POST":
+        form = CreateBlogForm(request.POST, request.FILES, instance=blog)
+        
+        if form.is_valid():
+            
+            if request.user.pk != blog.user.pk:
+                return redirect('home')
+
+            tags = request.POST['tags'].split(',')
+            user = get_object_or_404(User, pk=request.user.pk)
+            category = get_object_or_404(Category, pk=request.POST['category'])
+            blog = form.save(commit=False)
+            blog.user = user
+            blog.category = category
+            blog.save()
+
+            for tag in tags:
+                tag_input = Tag.objects.filter(
+                    title__iexact=tag.strip(),
+                    slug=slugify(tag.strip())
+                )
+                if tag_input.exists():
+                    t = tag_input.first()
+                    blog.tags.add(t)
+
+                else:
+                    if tag != '':
+                        new_tag = Tag.objects.create(
+                            title=tag.strip(),
+                            slug=slugify(tag.strip())
+                        )
+                        blog.tags.add(new_tag)
+
+            messages.success(request, "Blog updated successfully")
+            return redirect('blog_details', slug=blog.slug)
+        else:
+            print(form.errors)
+
+
+    context = {
+        "form": form,
+        "blog": blog
+    }
+    return render(request, 'update_blog.html', context)

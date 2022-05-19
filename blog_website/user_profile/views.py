@@ -1,10 +1,11 @@
 from email import message
 from multiprocessing import context
 from urllib.request import Request
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
 from .forms import *
 from django.contrib.auth import authenticate, login, logout
+from blog_part.models import Blog
 # Create your views here.
 
 def login_user(request):
@@ -45,3 +46,16 @@ def registration(request):
         'form': form
     }
     return render(request, 'registration.html', context)
+
+def profile(request, pk):
+    account = get_object_or_404(User, pk=pk)
+    queryset = account.user_blog.all()
+    blogs = queryset[:4]
+
+    print(queryset)
+    context = {
+        'blogs': blogs,
+        'account': account
+    }
+    return render(request, 'profile.html', context)
+
