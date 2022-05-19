@@ -6,15 +6,27 @@
     </li>
     {% endif %}
     {% for page in blogs.paginator.page_range %}
-    {% if page == blogs.number %}
-    <li class="page-item"><a class="page-link active" href="?page={{page}}">{{page}}</a></li>
-    {% else%}  
-    <li class="page-item"><a class="page-link" href="?page={{page}}">{{page}}</a></li>
-    {% endif %}
+        {% if search_key %}
+            {% if page == blogs.number %}
+            <li class="page-item"><a class="page-link active" href="?search={{search_key}}&page={{page}}">{{page}}</a></li>
+            {% else%}  
+            <li class="page-item"><a class="page-link" href="?search={{search_key}}&page={{page}}">{{page}}</a></li>
+            {% endif %}
+        {% else %}
+            {% if page == blogs.number %}
+            <li class="page-item"><a class="page-link active" href="?page={{page}}">{{page}}</a></li>
+            {% else%}  
+            <li class="page-item"><a class="page-link" href="?page={{page}}">{{page}}</a></li>
+            {% endif %}
+        {% endif %}
     {% endfor %}
     {% if blogs.has_next %}
     <li class="page-item">
+        {% if search_key %}
+        <a class="page-link" href="?search={{search_key}}&page={{blogs.next_page_number}}">Next</a>
+        {% else%}
         <a class="page-link" href="?page={{blogs.next_page_number}}">Next</a>
+        {% endif %}
     </li>
     {% endif %}
 </ul>

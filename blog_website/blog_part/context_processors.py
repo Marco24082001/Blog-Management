@@ -3,8 +3,8 @@ from .models import *
 
 def get_context_variable(request):
     categories = Category.objects.all()
-    recent_blogs = Blog.objects.order_by('-created_date')
-    popular_blogs = Blog.objects.order_by('-likes')
+    recent_blogs = Blog.objects.order_by('-created_date')[:3]
+    popular_blogs = Blog.objects.order_by('-likes')[:3]
     context = {
         'categories': categories,
         'recent_blogs': recent_blogs,
