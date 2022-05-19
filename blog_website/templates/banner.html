@@ -1,21 +1,15 @@
-{% load static %}
-<div class="col-md-6">
-    <div class="blog-box">
-        <div class="post-media">
-            <a href="{% url 'blog_detail' blog.slug %}" title="">
-                <img src="{{blog.banner.url}}" alt="" class="img-fluid">
-                <div class="hovereffect">
-                    <span></span>
-                </div><!-- end hover -->
-            </a>
-        </div><!-- end media -->
-        <div class="blog-meta big-meta">
-            <h4><a href="single.html" title="">{{blog.title}}
-            </a></h4>
-            <p>{{blog.text}}</p>
-            <small><a href="blog-category-01.html" title="">{{blog.category}}</a></small>
-            <small><a href="single.html" title="">{{blog.created_date}}</a></small>
-            <small><a href="blog-author.html" title="">by {{blog.user.username}}</a></small>
-        </div><!-- end meta -->
-    </div><!-- end blog-box -->
-</div><!-- end col -->
+
+
+    <div class="masonry-box post-media">
+        <img src="{{blog.banner.url}}" alt="" class="img-fluid">
+        <div class="shadoweffect">
+        <div class="shadow-desc">
+            <div class="blog-meta">
+                <span class="bg-green"><a href="{% url 'category' blog.category.slug %}" title="">{{blog.category}}</a></span>
+                <h4><a href="{% url 'blog_detail' blog.slug %}" title="">{{blog.title}}</a></h4>
+                <small><a href="single.html" title="">{{blog.created_date}}</a></small>
+                <small><a href="blog-author.html" title="">by {{blog.user.username}}</a></small>
+            </div><!-- end meta -->
+        </div><!-- end shadow-desc -->
+    </div><!-- end shadow -->
+    </div><!-- end post-media -->

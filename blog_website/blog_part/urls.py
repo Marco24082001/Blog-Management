@@ -10,5 +10,8 @@ urlpatterns = [
     path('blog_list', blog_list, name='blog_list'),
     path('search', search_blogs, name='search'),
     path('blog/detail/<slug:slug>/', BlogDetailView.as_view(), name='blog_detail'),
+    path('blogs/<int:pk>', my_blog, name='my_blogs'),
     path('blog/create', create_blog, name='create_blog'),
+    path('blog/update/<slug:slug>', update_blog, name='update_blog'),
+    path('blogs/delete/<int:pk>', detete_blog, name='delete_blog'),
 ]

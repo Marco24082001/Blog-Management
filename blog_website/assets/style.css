@@ -1156,7 +1156,7 @@ hr.invis2 {
 
 hr.invis3 {
     border: 0;
-    margin: 0;
+    margin: 2rem;
 }
 
 .post-media {
@@ -1686,4 +1686,14 @@ hr.invis3 {
 .text-danger{
     padding-left: 0.7rem;
     color: red;
+}
+
+.update{
+    color: white !important;
+    border: 1px solid #cce7f0;
+}
+
+.delete{
+    color : rgb(238, 158, 158);
+    border: 1px solid rgb(238, 158, 158);
 }
