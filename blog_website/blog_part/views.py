@@ -7,6 +7,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.core.paginator import PageNotAnInteger, EmptyPage, Paginator
 from django.views.generic import DetailView
 from .models import *
+from .forms import *
+from django.contrib import messages
 # Create your views here.
 
 def home(request):
@@ -131,3 +133,44 @@ class BlogDetailView(DetailView):
     context_object_name = 'blog'
     # def get_object(self, query_set=None):
     #     return Blog.objects.get(slug=self.kwargs.get('slug'))
+
+def create_blog(request):
+    form = CreateBlogForm()
+    if request.method == "POST":
+        form = CreateBlogForm(request.POST, request.FILES)
+        if form.is_valid():
+            tags = request.POST['tags'].split(',')
+            user = get_object_or_404(User, pk=request.user.pk)
+            category = get_object_or_404(Category, pk=request.POST['category'])
+            blog = form.save(commit=False)
+            blog.user = user
+            blog.category = category
+
+            blog.save()
+            for tag in tags:
+                tag_input = Tag.objects.filter(
+                    title__iexact=tag.strip(),
+                    slug=slugify(tag.strip())
+                )
+                if tag_input.exists():
+                    t = tag_input.first()
+                    blog.tags.add(t)
+
+                else:
+                    if tag != '':
+                        new_tag = Tag.objects.create(
+                            title=tag.strip(),
+                            slug=slugify(tag.strip())
+                        )
+                        blog.tags.add(new_tag)
+            
+            messages.success(request, "Blog added successfully")
+            return redirect('blog_detail', slug=blog.slug)
+        else:
+            print(form.errors)
+
+    context = {
+        "form": form
+    }
+    return render(request, 'create_blog.html', context)
+    

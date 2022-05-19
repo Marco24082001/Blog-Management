@@ -58,6 +58,7 @@ class Blog(models.Model):
             blank=True
         )
     title = models.CharField(
+        unique=True,
         max_length=250
     )
     slug = models.SlugField(null = True, blank=True)
