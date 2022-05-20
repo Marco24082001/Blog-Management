@@ -19,11 +19,14 @@
             </button>
             <div class="collapse navbar-collapse justify-content-md-center" id="cloapediamenu">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link color-pink-hover" href="{% url 'home' %}">Home</a>
+                    <li class="nav-item d-flex">
+                        <a class="nav-link color-aqua-hover align-self-center" href="{% url 'create_blog' %}">New</a>
                     </li>
-                    <li class="nav-item dropdown has-submenu hidden-md-down hidden-sm-down hidden-xs-down">
-                        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
+                    <li class="nav-item d-flex">
+                        <a class="nav-link color-pink-hover align-self-center" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item d-flex dropdown has-submenu hidden-md-down hidden-sm-down hidden-xs-down">
+                        <a class="align-self-center nav-link dropdown-toggle " href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
                         <ul class="dropdown-menu megamenu" aria-labelledby="dropdown01">
                             {% comment %} <li>
                                 <div class="mega-menu-content clearfix">
@@ -42,19 +45,24 @@
                             <li><hr class="dropdown-divider"></li>  
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link color-pink-hover" href="{% url 'blog_list' %}">Blogs</a>
+                    <li class="nav-item d-flex">
+                        <a class="nav-link color-pink-hover align-self-center" href="{% url 'blog_list' %}">Blogs</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link color-aqua-hover" href="blog-category-03.html">Nofications</a>
+                    <li class="nav-item d-flex">
+                        <a class="nav-link color-aqua-hover align-self-center" href="blog-category-03.html">Nofications</a>
                     </li>
                     {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link color-red-hover" href="{% url 'logout' %}">Logout</a>
+                    <li class="nav-item d-flex">
+                        <a class="nav-link color-red-hover align-self-center" href="{% url 'profile' request.user.pk %}"><img src="{{request.user.get_profile_picture}}" class="rounded-circle" style="width: 2rem;" alt="Avatar" /></a>
                     </li>
+                    
+                    <li class="nav-item d-flex">
+                        <a class="nav-link color-red-hover align-self-center" href="{% url 'logout' %}">Logout</a>
+                    </li>
+                    
                     {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link color-red-hover" href="{% url 'login' %}">Login</a>
+                    <li class="nav-item d-flex">
+                        <a class="nav-link color-red-hover align-slef-center" href="{% url 'login' %}">Login</a>
                     </li>
                     {% endif %}
                 </ul>
