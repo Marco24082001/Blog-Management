@@ -140,13 +140,14 @@ def search_blogs(request):
 def blog_detail(request, slug):
     form = TextForm()
     blog = get_object_or_404(Blog, slug=slug)
-    
+    liked = request.user in blog.likes.all()    
+
     if request.method == "POST" and request.user.is_authenticated:
         form = TextForm(request.POST)
         if form.is_valid():
             print('thanhvi')
             print(form.cleaned_data.get('text'))
-            Comment.objects.create(
+            Comment.objects.create( 
                 user = request.user,
                 blog = blog,
                 text = form.cleaned_data.get('text')
@@ -154,7 +155,8 @@ def blog_detail(request, slug):
             return redirect('blog_detail', slug = slug)
     context = {
         'blog' : blog,
-        'form' : form
+        'form' : form,
+        'liked' : liked
     }
     return render(request, 'detail_blog.html', context)
 
@@ -296,3 +298,20 @@ def add_reply(request, slug, comment_id):
                 text = form.cleaned_data.get('text')
             )
             return redirect('blog_detail', slug=slug)
+
+@login_required(login_url='/')
+def like_blog(request, pk):
+    context = {}
+    blog = get_object_or_404(Blog, pk=pk)
+
+    if request.user in blog.likes.all():
+        blog.likes.remove(request.user)
+        context['liked'] = False
+        context['like_count'] = blog.likes.all().count()
+
+    else:
+        blog.likes.add(request.user)
+        context['liked'] = True
+        context['like_count'] = blog.likes.all().count()
+    
+    return JsonResponse(context, safe=False)

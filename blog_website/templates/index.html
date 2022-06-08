@@ -74,7 +74,7 @@
                           {% for blog in Lifestyle_blogs %}
                           <div class="blog-box">
                               <div class="post-media">
-                                  <a href="single.html" title="">
+                                  <a href="{% url 'blog_detail' blog.slug %}" title="">
                                       <img src="{{blog.banner.url}}" alt="" class="img-fluid">
                                       <div class="hovereffect">
                                           <span></span>
@@ -107,7 +107,7 @@
                         {% for blog in Fashion_blogs|slice:"0:2" %}
                         <div class="blog-box">
                               <div class="post-media">
-                                  <a href="single.html" title="">
+                                  <a href="{% url 'blog_detail' blog.slug %}" title="">
                                       <img src="{{blog.banner.url}}" alt="" class="img-fluid">
                                       <div class="hovereffect">
                                           <span></span>
@@ -115,7 +115,7 @@
                                   </a>
                               </div><!-- end media -->
                               <div class="blog-meta">
-                                  <h4><a href="single.html" title="">{{blog.title}}</a></h4>
+                                  <h4><a href="{% url 'blog_detail' blog.slug %}" title="">{{blog.title}}</a></h4>
                                   <small><a href="blog-category-01.html" title="">{{blog.category}}</a></small>
                                   <small><a href="blog-category-01.html" title="">{{blog.created_date}}</a></small>
                               </div><!-- end meta -->
@@ -129,7 +129,7 @@
                           {% for blog in Fashion_blogs|slice:"2:4" %}
                           <div class="blog-box">
                             <div class="post-media">
-                                <a href="single.html" title="">
+                                <a href="{% url 'blog_detail' blog.slug %}" title="">
                                     <img src="{{blog.banner.url}}" alt="" class="img-fluid">
                                     <div class="hovereffect">
                                         <span></span>
@@ -137,7 +137,7 @@
                                 </a>
                             </div><!-- end media -->
                             <div class="blog-meta">
-                                <h4><a href="single.html" title="">{{blog.title}}</a></h4>
+                                <h4><a href="{% url 'blog_detail' blog.slug %}" title="">{{blog.title}}</a></h4>
                                 <small><a href="blog-category-01.html" title="">{{blog.category}}</a></small>
                                 <small><a href="blog-category-01.html" title="">{{blog.created_date}}</a></small>
                             </div><!-- end meta -->
@@ -174,7 +174,7 @@
                       <div class="blog-box row">
                           <div class="col-md-4">
                               <div class="post-media">
-                                  <a href="single.html" title="">
+                                  <a href="{% url 'blog_detail' blog.slug %}l" title="">
                                       <img src="{{blog.banner.url}}" alt="" class="img-fluid">
                                       <div class="hovereffect"></div>
                                   </a>
@@ -182,7 +182,7 @@
                           </div><!-- end col -->
 
                           <div class="blog-meta big-meta col-md-8">
-                              <h4><a href="single.html" title="">{{blog.title}}</a></h4>
+                              <h4><a href="{% url 'blog_detail' blog.slug %}" title="">{{blog.title}}</a></h4>
                               <p>{{blog.description|truncatechars:20}}</p>
                               <small><a href="blog-category-01.html" title="">{{blog.category}}</a></small>
                               <small><a href="single.html" title="">{{blog.created_date}}</a></small>
