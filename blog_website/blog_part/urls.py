@@ -9,9 +9,12 @@ urlpatterns = [
     path('tag/<str:slug>/', tag_blogs, name='tag'),
     path('blog_list', blog_list, name='blog_list'),
     path('search', search_blogs, name='search'),
-    path('blog/detail/<slug:slug>/', BlogDetailView.as_view(), name='blog_detail'),
+    # path('blog/detail/<slug:slug>/', BlogDetailView.as_view(), name='blog_detail'),
+    path('blog/detail/<slug:slug>/', blog_detail, name='blog_detail'),
     path('blogs/<int:pk>', my_blog, name='my_blogs'),
     path('blog/create', create_blog, name='create_blog'),
     path('blog/update/<slug:slug>', update_blog, name='update_blog'),
     path('blogs/delete/<int:pk>', detete_blog, name='delete_blog'),
+
+    path('add_reply/<slug:slug>/<int:comment_id>', add_reply, name='add_reply'),
 ]
