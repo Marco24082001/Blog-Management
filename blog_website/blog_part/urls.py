@@ -17,4 +17,6 @@ urlpatterns = [
     path('blogs/delete/<int:pk>', detete_blog, name='delete_blog'),
 
     path('add_reply/<slug:slug>/<int:comment_id>', add_reply, name='add_reply'),
+    path('like_blog/<int:pk>', like_blog, name='like_blog'),
+
 ]

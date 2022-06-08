@@ -1708,3 +1708,11 @@ hr.invis3 {
 .media {
     border-left: 1px rgb(163, 163, 163) solid;
 }
+
+.empty-heart {
+    color : #a3a5a8 !important;
+}
+
+.fa-heart {
+    color : red
+}
