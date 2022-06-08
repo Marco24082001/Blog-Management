@@ -76,12 +76,12 @@ class Blog(models.Model):
 class Comment(models.Model):
     user = models.ForeignKey(
             User,
-            related_name = 'user_comment',
+            related_name = 'user_comments',
             on_delete = models.CASCADE
         )
     blog = models.ForeignKey(
                 Blog,
-                related_name = 'blog_comment',
+                related_name = 'blog_comments',
                 on_delete=models.CASCADE
             )
     text = models.TextField()
@@ -93,12 +93,12 @@ class Comment(models.Model):
 class Reply(models.Model):
     user = models.ForeignKey(
             User,
-            related_name = 'user_replie',
+            related_name = 'user_replies',
             on_delete = models.CASCADE
         )
     comment = models.ForeignKey(
                 Comment,
-                related_name = 'comment_replie',
+                related_name = 'comment_replies',
                 on_delete=models.CASCADE
             )
     text = models.TextField()

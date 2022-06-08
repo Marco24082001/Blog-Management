@@ -1,3 +1,4 @@
+from gc import get_objects
 from multiprocessing import context
 from turtle import right
 from unicodedata import category
@@ -10,6 +11,7 @@ from django.views.generic import DetailView
 from .models import *
 from .forms import *
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def home(request):
@@ -128,12 +130,33 @@ def search_blogs(request):
     else:
         return redirect('home')
 
-class BlogDetailView(DetailView):
-    model = Blog
-    template_name = 'detail_blog.html'
-    context_object_name = 'blog'
-    # def get_object(self, query_set=None):
-    #     return Blog.objects.get(slug=self.kwargs.get('slug'))
+# class BlogDetailView(DetailView):
+#     model = Blog
+#     template_name = 'detail_blog.html'
+#     context_object_name = 'blog'
+#     # def get_object(self, query_set=None):
+#     #     return Blog.objects.get(slug=self.kwargs.get('slug'))
+
+def blog_detail(request, slug):
+    form = TextForm()
+    blog = get_object_or_404(Blog, slug=slug)
+    
+    if request.method == "POST" and request.user.is_authenticated:
+        form = TextForm(request.POST)
+        if form.is_valid():
+            print('thanhvi')
+            print(form.cleaned_data.get('text'))
+            Comment.objects.create(
+                user = request.user,
+                blog = blog,
+                text = form.cleaned_data.get('text')
+            )
+            return redirect('blog_detail', slug = slug)
+    context = {
+        'blog' : blog,
+        'form' : form
+    }
+    return render(request, 'detail_blog.html', context)
 
 def create_blog(request):
     form = CreateBlogForm()
@@ -259,3 +282,17 @@ def update_blog(request, slug):
         "blog": blog
     }
     return render(request, 'update_blog.html', context)
+
+
+@login_required(login_url='/')
+def add_reply(request, slug, comment_id):
+    if request.method == "POST":
+        form = TextForm(request.POST)
+        if form.is_valid():
+            comment = get_object_or_404(Comment, id=comment_id)
+            Reply.objects.create(
+                user = request.user,
+                comment = comment,
+                text = form.cleaned_data.get('text')
+            )
+            return redirect('blog_detail', slug=slug)

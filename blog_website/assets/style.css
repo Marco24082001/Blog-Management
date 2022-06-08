@@ -1372,7 +1372,7 @@ hr.invis3 {
 }
 
 .form-wrapper textarea {
-    min-height: 120px !important;
+    /* min-height: 120px !important; */
     padding-top: 1rem
 }
 
@@ -1696,4 +1696,15 @@ hr.invis3 {
 .delete{
     color : rgb(238, 158, 158);
     border: 1px solid rgb(238, 158, 158);
+}
+
+.reply {
+    margin-left: 8rem;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    padding-top: 0px !important;
+}
+
+.media {
+    border-left: 1px rgb(163, 163, 163) solid;
 }
