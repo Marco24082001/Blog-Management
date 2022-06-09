@@ -8,6 +8,7 @@ from venv import create
 from django.db import models
 from django.utils.text import slugify
 from user_profile.models import User
+from .slugs import generate_unique_slug
 # Create your models here.
 
 class Category(models.Model):
@@ -58,7 +59,6 @@ class Blog(models.Model):
             blank=True
         )
     title = models.CharField(
-        unique=True,
         max_length=250
     )
     slug = models.SlugField(null = True, blank=True)
@@ -70,7 +70,7 @@ class Blog(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        self.slug = generate_unique_slug(self, self.title)
         super().save(*args, **kwargs)
 
 class Comment(models.Model):
