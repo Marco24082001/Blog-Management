@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} My Pofile {% endblock title %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row py-5">
+        <div class="col-md-4">
+            <div class="text-center">
+                <img class="rounded rounded-circle profile-picture" src="{{user.get_profile_picture}}" alt="">
+                <ul class="text-center py-3">
+                    <li class="py-2">
+                        <span>Posts: <strong>{{user.user_blogs.count}}</strong></span>
+                    </li>
+                    <li class="py-2">
+                        <span>Follwers: <strong>{{user.user_followers.count}}</strong></span>
+                    </li>
+                    <li class="py-2">
+                        <span>Following: <strong>{{user.user_follows.count}}</strong></span>
+                    </li>
+                    {% comment %} <li class="py-2">
+                        {% if following %}
+                        <a class="btn btn-primary text-decoration-none" href="{% url 'follow_or_unfollow_user' user.id %}">Unfollow</a>
+                        {% if muted %}
+                        <a class="btn btn-primary text-decoration-none" href="{% url 'mute_or_unmute_user' user.id %}">Unmute</a>
+                        {% else %}
+                        <a class="btn btn-primary text-decoration-none" href="{% url 'mute_or_unmute_user' user.id %}">Mute</a>
+                        {% endif %}
+                        {% else %}
+                        <a class="btn btn-primary text-decoration-none" href="{% url 'follow_or_unfollow_user' user.id %}">Follow</a>
+                        {% endif %}
+                    </li> {% endcomment %}
+                </ul>
+            </div>
+        </div>
+        <div class="col -md-r4">
+            <div class="col-md-12 mb-2">
+            <h4 class="text-monospace text-center">{{user.username}}'s blogs</h4>
+            </div>
+            <div class="col-md-12">
+                <ul class="list-group list-group-flush">
+                    {% for blog in user.user_blogs.all %}
+                    <li class="list-group-item py-3">
+                        <a href="{% url 'blog_detail' blog.slug %}" class="text-center">
+                            <p>{{blog.title}}</p>
+                            <p>{{blog.created_date}}</p>
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
