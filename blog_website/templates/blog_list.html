@@ -39,7 +39,7 @@
                                         <p>{{blog.text}}</p>
                                         <small><a href="blog-category-01.html" title="">{{blog.category}}</a></small>
                                         <small><a href="single.html" title="">{{blog.created_date}}</a></small>
-                                        <small><a href="blog-author.html" title="">by {{blog.user.username}}</a></small>
+                                        <small><a href="{% url 'user_information' blog.user.username %}" title="">by {{blog.user.username}}</a></small>
                                     </div><!-- end meta -->
                                 </div><!-- end blog-box -->
                             </div><!-- end col -->

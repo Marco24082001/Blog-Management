@@ -272,7 +272,7 @@ def update_blog(request, slug):
                         blog.tags.add(new_tag)
 
             messages.success(request, "Blog updated successfully")
-            return redirect('blog_details', slug=blog.slug)
+            return redirect('blog_detail', slug=blog.slug)
         else:
             print(form.errors)
 

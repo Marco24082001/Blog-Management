@@ -1,5 +1,6 @@
 from email import message
 from multiprocessing import context
+import re
 from urllib.request import Request
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
@@ -58,14 +59,14 @@ def registration(request):
 
 @login_required(login_url='login')
 def profile(request):
-    account = get_object_or_404(User, pk=request.user.pk)
-    form = UserProfileUpdateForm(instance=account)
+    user = get_object_or_404(User, pk=request.user.pk)
+    form = UserProfileUpdateForm(instance=user)
     
     if request.method == "POST":
-        if request.user.pk != account.pk:
+        if request.user.pk != user.pk:
             return redirect('home')
         
-        form = UserProfileUpdateForm(request.POST, instance=account)
+        form = UserProfileUpdateForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
             messages.success(request, "Profile has been updated sucessfully")
@@ -74,7 +75,7 @@ def profile(request):
             print(form.errors)
 
     context = {
-        "account": account,
+        "user": user,
         "form": form
     }
     return render(request, 'profile.html', context)
@@ -101,3 +102,10 @@ def change_profile_picture(request):
 
     return redirect('profile')
 
+def user_information(request, username):
+    user = get_object_or_404(User, username = username)
+
+    context = {
+        'user': user,
+    }
+    return render(request, 'user_information.html', context)

@@ -8,13 +8,13 @@
                 <img class="rounded rounded-circle profile-picture" src="{{request.user.get_profile_picture}}" alt="">
                 <ul class="text-center py-3">
                     <li class="py-2">
-                        <span>Posts: <strong>{{account.user_blogs.count}}</strong></span>
+                        <span>Posts: <strong>{{user.user_blogs.count}}</strong></span>
                     </li>
                     <li class="py-2">
-                        <span>Follwers: <strong>{{account.followers.all.count}}</strong></span>
+                        <span>Follwers: <strong>{{user.followers.all.count}}</strong></span>
                     </li>
                     <li class="py-2">
-                        <span>Following: <strong>{{account.user_follows.all.count}}</strong></span>
+                        <span>Following: <strong>{{user.user_follows.all.count}}</strong></span>
                     </li>
                 </ul>
             </div>
@@ -80,24 +80,24 @@
                 {% endif %}
                 <div class="form-group">
                     <label for="firstname">Firstname</label>
-                    <input class="form-control" name="first_name"  value="{{account.first_name}}" type="text">
+                    <input class="form-control" name="first_name"  value="{{user.first_name}}" type="text">
                     <span class="text-danger error py-1">{{form.first_name.errors}}</span>
                 </div>
                 <div class="form-group">
                     <label for="lastname">Lastname</label>
-                    <input class="form-control" name="last_name"  value="{{account.last_name}}" type="text">
+                    <input class="form-control" name="last_name"  value="{{user.last_name}}" type="text">
                     <span class="text-danger error py-1">{{form.last_name.errors}}</span>
                 </div>
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input class="form-control" name="username"  value="{{account.username}}" type="text">
+                    <input class="form-control" name="username"  value="{{user.username}}" type="text">
                     <span class="text-danger error py-1">
                         {{form.username.errors}}
                     </span>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input class="form-control" name="email"  value="{{account.email}}" type="email">
+                    <input class="form-control" name="email"  value="{{user.email}}" type="email">
                     <span class="text-danger error py-1">{{form.email.errors}}</span>
                 </div>
                 <div class="form-group">
