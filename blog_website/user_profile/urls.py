@@ -3,8 +3,9 @@ from django.urls import URLPattern, path
 from .views import *
 
 urlpatterns = [
-    path('login', login_user, name='login'),
-    path('logout', logout_user, name='logout'),
-    path('registration', registration, name='registration'),
-    path('profile/<int:pk>', profile, name='profile'),
+    path('login/', login_user, name='login'),
+    path('logout/', logout_user, name='logout'),
+    path('registration/', registration, name='registration'),
+    path('profile/', profile, name='profile'),
+    path('change_profile_picture/', change_profile_picture, name='change_profile_picture'),
 ]

@@ -43,7 +43,7 @@ def home(request):
 
 def category_blogs(request, slug):
     category = get_object_or_404(Category, slug=slug)
-    queryset = category.category_blog.all()
+    queryset = category.category_blogs.all()
     page = request.GET.get('page', 1)
     paginator = Paginator(queryset, 6)
     
@@ -205,10 +205,9 @@ def detete_blog(request, slug):
 
     pass
 
-def my_blog(request, pk):
-    account = get_object_or_404(User, pk=pk)
-    queryset = account.user_blog.all()
-
+@login_required(login_url='login')
+def my_blogs(request):
+    queryset = request.user.user_blogs.all()
     page = request.GET.get('page', 1)
     paginator = Paginator(queryset, 6)
 
@@ -220,7 +219,7 @@ def my_blog(request, pk):
             return redirect('home')
         blog.delete()
         messages.success(request, 'Your blog has been deleted !')
-        return redirect('my_blogs', pk = account.pk )
+        return redirect('my_blogs')
     
     try:
         blogs = paginator.page(page)
@@ -232,7 +231,6 @@ def my_blog(request, pk):
 
     context = {
         'blogs' : blogs,
-        'account' : account,
     }
     return render(request, 'my_blogs.html', context)
     

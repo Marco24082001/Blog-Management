@@ -39,12 +39,12 @@ class Tag(models.Model):
 class Blog(models.Model):
     user = models.ForeignKey(
         User,
-        related_name='user_blog',
+        related_name='user_blogs',
         on_delete=models.CASCADE
     )
     category = models.ForeignKey(
         Category,
-        related_name='category_blog',
+        related_name='category_blogs',
         on_delete=models.CASCADE
     )
     tags = models.ManyToManyField(
