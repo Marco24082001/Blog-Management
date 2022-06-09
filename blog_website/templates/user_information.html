@@ -19,6 +19,13 @@
                     <li class="py-2">
                         <span>Following: <strong>{{user.user_follows.count}}</strong></span>
                     </li>
+                    <li>
+                        {% if following %}
+                        <a class="btn btn-primary text-decoration-none" href="{% url 'follow_or_unfollow' user.id %}">Un Follow</a>
+                        {% else %}
+                        <a class="btn btn-primary text-decoration-none" href="{% url 'follow_or_unfollow' user.id %}">Follow</a>
+                        {% endif %}
+                    </li>
                     {% comment %} <li class="py-2">
                         {% if following %}
                         <a class="btn btn-primary text-decoration-none" href="{% url 'follow_or_unfollow_user' user.id %}">Unfollow</a>
