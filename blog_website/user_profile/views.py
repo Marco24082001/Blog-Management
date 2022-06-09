@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from blog_part.models import Blog
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
-
+from .models import *
 from .decorators import (
     not_logged_in_required
 )
@@ -103,9 +103,38 @@ def change_profile_picture(request):
     return redirect('profile')
 
 def user_information(request, username):
-    user = get_object_or_404(User, username = username)
+    if request.user.username == username:
+        return redirect('profile')
 
+    user = get_object_or_404(User, username = username)
+    followers = user.followers.all()
+    following = False
+    if request.user.is_authenticated:
+        if request.user in followers:
+            following = True
+    
     context = {
         'user': user,
+        'followers': followers,
+        'following': following,
     }
     return render(request, 'user_information.html', context)
+
+@login_required(login_url = "login")
+def follow_or_unfollow(request, user_id):
+    followed = get_object_or_404(User, id=user_id)
+    followed_by = get_object_or_404(User, id=request.user.id)
+
+    follow, created = Follow.objects.get_or_create(
+        followed=followed,
+        followed_by=followed_by
+    )
+
+    if created:
+        followed.followers.add(follow)
+
+    else:
+        followed.followers.remove(follow)
+        follow.delete()
+
+    return redirect("user_information", username=followed.username)

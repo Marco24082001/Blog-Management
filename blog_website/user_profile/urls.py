@@ -9,4 +9,5 @@ urlpatterns = [
     path('profile/', profile, name='profile'),
     path('change_profile_picture/', change_profile_picture, name='change_profile_picture'),
     path('user_information/<str:username>/', user_information, name='user_information'),
+    path('follow_or_unfollow/<int:user_id>/', follow_or_unfollow, name='follow_or_unfollow'),
 ]
