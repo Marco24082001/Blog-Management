@@ -207,7 +207,7 @@ def detete_blog(request, slug):
 
 @login_required(login_url='login')
 def my_blogs(request):
-    queryset = request.user.user_blogs.all()
+    queryset = request.user.user_blogs.all().order_by('-created_date')
     page = request.GET.get('page', 1)
     paginator = Paginator(queryset, 6)
 
