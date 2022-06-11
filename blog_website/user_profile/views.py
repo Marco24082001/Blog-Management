@@ -107,15 +107,17 @@ def user_information(request, username):
         return redirect('profile')
 
     user = get_object_or_404(User, username = username)
-    followers = user.followers.all()
+    
     following = False
     if request.user.is_authenticated:
-        if request.user in followers:
+        followers = user.followers.filter(
+            followed_by__id = request.user.id
+        )
+        if followers.exists():
             following = True
     
     context = {
         'user': user,
-        'followers': followers,
         'following': following,
     }
     return render(request, 'user_information.html', context)

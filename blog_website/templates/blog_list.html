@@ -34,7 +34,7 @@
                                         </a>
                                     </div><!-- end media -->
                                     <div class="blog-meta big-meta">
-                                        <h4><a href="single.html" title="">{{blog.title}}
+                                        <h4><a href="{% url 'blog_detail' blog.slug %}" title="">{{blog.title}}
                                         </a></h4>
                                         <p>{{blog.text}}</p>
                                         <small><a href="blog-category-01.html" title="">{{blog.category}}</a></small>
