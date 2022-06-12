@@ -10,6 +10,7 @@ from blog_part.models import Blog
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from .models import *
+from notification.models import Notification
 from .decorators import (
     not_logged_in_required
 )
@@ -140,3 +141,16 @@ def follow_or_unfollow(request, user_id):
         follow.delete()
 
     return redirect("user_information", username=followed.username)
+
+
+@login_required(login_url = "login")
+def notificaiton(request):
+    notificaitons = Notification.objects.filter(
+        user = request.user,
+        is_seen = False
+    )
+
+    for notification in notificaitons:
+        notification.is_seen = True
+        notification.save()
+    return render(request, 'notification.html')

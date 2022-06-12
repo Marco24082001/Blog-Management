@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog_part',
+    'notification',
     'user_profile',
     'cloudinary_storage',
     'cloudinary',
@@ -68,7 +69,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'blog_part.context_processors.get_context_variable'
+                'blog_part.context_processors.get_context_variable',
+                'user_profile.context_processors.notification'
             ],
         },
     },
