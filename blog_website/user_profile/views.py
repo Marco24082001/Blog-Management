@@ -108,18 +108,26 @@ def user_information(request, username):
         return redirect('profile')
 
     user = get_object_or_404(User, username = username)
-    
     following = False
+    muted = None
     if request.user.is_authenticated:
         followers = user.followers.filter(
             followed_by__id = request.user.id
         )
         if followers.exists():
             following = True
-    
+
+    if following:
+        follower = followers.first()
+        if follower.muted:
+            muted = True
+        else:
+            muted = False
+
     context = {
         'user': user,
         'following': following,
+        'muted': muted
     }
     return render(request, 'user_information.html', context)
 
@@ -154,3 +162,23 @@ def notificaiton(request):
         notification.is_seen = True
         notification.save()
     return render(request, 'notification.html')
+
+@login_required(login_url='login')
+def mute_or_unmute_user(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    follower = get_object_or_404(User, pk=request.user.pk)
+    instance = get_object_or_404(
+        Follow,
+        followed=user,
+        followed_by=follower
+    )
+
+    if instance.muted:
+        instance.muted = False
+        instance.save()
+
+    else:
+        instance.muted = True
+        instance.save()
+
+    return redirect('user_information', username=user.username)
