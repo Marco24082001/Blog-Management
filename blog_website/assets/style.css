@@ -1763,7 +1763,7 @@ ul {
 } */
 
 .form-check-input {
-    margin-left: 0;
+    margin: 0;
 }
 
 
@@ -1773,12 +1773,21 @@ ul {
     position: relative;
 }
 
-/* .form-control-lg {
-    position: absolute;
-} */
-
 .form-label {
     position: absolute;
+    padding:0.4rem;
+    margin-left: 1.2rem;
     left: 0;
-    top:0;
+    top:50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    transition: 200ms ease;
+}
+
+.form-control-lg:focus +label, .form-control:valid +label{
+    top: 0px;
+    margin-left: 0.8rem;
+    font-size: 0.8rem;
+    padding-bottom: 0;
+    background-color: #ffffff;
 }

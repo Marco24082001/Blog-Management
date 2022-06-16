@@ -155,7 +155,7 @@
           <hr class="invis1">
 
           <div class="row">
-              <div class="col-lg-9">
+              <div class="col-lg-8">
                   <div class="blog-list clearfix">
                       <div class="section-title">
                           <h3 class="color-green"><a href="blog-category-01.html" title="">Travel</a></h3>
@@ -187,91 +187,35 @@
                   <hr class="invis">
 
                   <div class="blog-list clearfix">
-                      <div class="section-title">
-                          <h3 class="color-red"><a href="blog-category-01.html" title="">Food</a></h3>
-                      </div><!-- end title -->
-                     {% for blog in Food_blogs %}
-                      <div class="blog-box row">
-                          <div class="col-md-4">
-                              <div class="post-media">
-                                  <a href="{% url 'blog_detail' blog.slug %}" title="">
-                                      <img src="{{blog.banner.url}}" alt="" class="img-fluid">
-                                      <div class="hovereffect"></div>
-                                  </a>
-                              </div><!-- end media -->
-                          </div><!-- end col -->
+                    <div class="section-title">
+                        <h3 class="color-red"><a href="blog-category-01.html" title="">Travel</a></h3>
+                    </div><!-- end title -->
+                    {% for blog in Travel_blogs %}
+                    <div class="blog-box row">
+                        <div class="col-md-4">
+                            <div class="post-media">
+                                <a href="{% url 'blog_detail' blog.slug %}l" title="">
+                                    <img src="{{blog.banner.url}}" alt="" class="img-fluid">
+                                    <div class="hovereffect"></div>
+                                </a>
+                            </div><!-- end media -->
+                        </div><!-- end col -->
 
-                          <div class="blog-meta big-meta col-md-8">
-                              <h4><a href="{% url 'blog_detail' blog.slug %}" title="">{{blog.title}}</a></h4>
-                              <p>{{blog.description|safe|truncatechars:20}}</p>
-                              <small><a href="blog-category-01.html" title="">{{blog.category}}</a></small>
-                              <small><a href="{% url 'blog_detail' blog.slug %}" title="">{{blog.created_date}}</a></small>
-                              <small><a href="{% url 'user_information' blog.user.username%}" title="">by {{blog.user.username}}</a></small>
-                          </div><!-- end meta -->
-                      </div><!-- end blog-box -->
+                        <div class="blog-meta big-meta col-md-8">
+                            <h4><a href="{% url 'blog_detail' blog.slug %}" title="">{{blog.title}}</a></h4>
+                            <p>{{blog.description|safe|truncatechars:20}}</p>
+                            <small><a href="blog-category-01.html" title="">{{blog.category}}</a></small>
+                            <small><a href="{% url 'blog_detail' blog.slug %}" title="">{{blog.created_date}}</a></small>
+                            <small><a href="{% url 'user_information' blog.user.username%}" title="">by {{blog.user.username}}</a></small>
+                        </div><!-- end meta -->
+                    </div><!-- end blog-box -->
 
-                      <hr class="invis">
-                      {% endfor %}
-                  </div><!-- end blog-list -->
+                    <hr class="invis">
+                    {% endfor %}
+                </div><!-- end blog-list -->
               </div><!-- end col -->
 
-              <div class="col-lg-3">
-                  {% comment %} <div class="section-title">
-                      <h3 class="color-yellow"><a href="blog-category-01.html" title="">Vlogs</a></h3>
-                  </div><!-- end title -->
-
-                  <div class="blog-box">
-                      <div class="post-media">
-                          <a href="{% url 'blog_detail' blog.slug %}" title="">
-                              <img src="{% static 'upload/blog_10.jpg' %}" alt="" class="img-fluid">
-                              <div class="hovereffect">
-                                  <span class="videohover"></span>
-                              </div><!-- end hover -->
-                          </a>
-                      </div><!-- end media -->
-                      <div class="blog-meta">
-                          <h4><a href="{% url 'blog_detail' blog.slug %}" title="">We are guests of ABC Design Studio - Vlog</a></h4>
-                          <small><a href="blog-category-01.html" title="">Videos</a></small>
-                          <small><a href="blog-category-01.html" title="">21 July, 2017</a></small>
-                      </div><!-- end meta -->
-                  </div><!-- end blog-box -->
-
-                  <hr class="invis">
-
-                  <div class="blog-box">
-                      <div class="post-media">
-                          <a href="{% url 'blog_detail' blog.slug %}" title="">
-                              <img src="{% static 'upload/blog_11.jpg' %}" alt="" class="img-fluid">
-                              <div class="hovereffect">
-                                  <span class="videohover"></span>
-                              </div><!-- end hover -->
-                          </a>
-                      </div><!-- end media -->
-                      <div class="blog-meta">
-                          <h4><a href="{% url 'blog_detail' blog.slug %}" title="">Nostalgia at work</a></h4>
-                          <small><a href="blog-category-01.html" title="">Videos</a></small>
-                          <small><a href="blog-category-01.html" title="">20 July, 2017</a></small>
-                      </div><!-- end meta -->
-                  </div><!-- end blog-box -->
-
-                  <hr class="invis">
-
-                  <div class="blog-box">
-                      <div class="post-media">
-                          <a href="{% url 'blog_detail' blog.slug %}" title="">
-                              <img src="{% static 'upload/blog_12.jpg' %}" alt="" class="img-fluid">
-                              <div class="hovereffect">
-                                  <span class="videohover"></span>
-                              </div><!-- end hover -->
-                          </a>
-                      </div><!-- end media -->
-                      <div class="blog-meta">
-                          <h4><a href="{% url 'blog_detail' blog.slug %}" title="">How to become a good vlogger</a></h4>
-                          <small><a href="blog-category-01.html" title="">Beauty</a></small>
-                          <small><a href="blog-category-01.html" title="">20 July, 2017</a></small>
-                      </div><!-- end meta -->
-                  </div><!-- end blog-box --> {% endcomment %}
-
+              <div class="col-lg-4">
                   {% comment %} <hr class="invis"> {% endcomment %}
 
                   <div class="section-title">
@@ -288,7 +232,7 @@
                           </a>
                       </div><!-- end media -->
                       <div class="blog-meta">
-                          <h4><a href="{% url 'blog_detail' blog.slug %}" title="">{{blog.title}}/a></h4>
+                          <h4><a href="{% url 'blog_detail' blog.slug %}" title="">{{blog.title}}</a></h4>
                           <small><a href="blog-category-01.html" title="">{{blog.category}}</a></small>
                           <small><a href="blog-category-01.html" title="">{{blog.created_date}}</a></small>
                       </div><!-- end meta -->
