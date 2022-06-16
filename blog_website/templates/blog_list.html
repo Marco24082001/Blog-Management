@@ -8,16 +8,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-                <div class="page-wrapper">
-                    <div class="row">
-                        <div class="col-lg-10 offset-lg-1">
-                            <div class="banner-spot clearfix">
-                                <div class="banner-img">
-                                    <img src="{% static 'upload/banner_02.jpg' %}" alt="" class="img-fluid">
-                                </div><!-- end banner-img -->
-                            </div><!-- end banner -->
-                        </div><!-- end col -->
-                    </div><!-- end row -->
+                <div class="page-wrapper">  
 
                     <hr class="invis">
 
@@ -38,8 +29,8 @@
                                         <h4><a href="{% url 'blog_detail' blog.slug %}" title="">{{blog.title}}
                                         </a></h4>
                                         <p>{{blog.text}}</p>
-                                        <small><a href="blog-category-01.html" title="">{{blog.category}}</a></small>
-                                        <small><a href="single.html" title="">{{blog.created_date}}</a></small>
+                                        <small><a href="{% url 'category' blog.category.slug %}" title="">{{blog.category}}</a></small>
+                                        <small><a href="javascript:void(0)" title="">{{blog.created_date}}</a></small>
                                         <small><a href="{% url 'user_information' blog.user.username %}" title="">by {{blog.user.username}}</a></small>
                                     </div><!-- end meta -->
                                 </div><!-- end blog-box -->

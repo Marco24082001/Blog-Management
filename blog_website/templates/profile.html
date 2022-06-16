@@ -63,6 +63,7 @@
         </div>
         <div class="col-md-8">
             <form class="px-4" action="{% url 'profile' %}" method="POST">
+                {{form.media}}
                 {% csrf_token %}
                 {% comment %} {% if messages %}
                 <div class="form-group">
@@ -99,6 +100,12 @@
                     <label for="email">Email</label>
                     <input class="form-control" name="email"  value="{{user.email}}" type="email">
                     <span class="text-danger error py-1">{{form.email.errors}}</span>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <div>
+                        {{form.description|safe}}
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="new_password">New Password</label>

@@ -25,5 +25,4 @@ likeIcon.onclick = () => {
     .catch(err => {
         console.log(err)
     })
-
 }

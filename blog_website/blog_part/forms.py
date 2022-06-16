@@ -51,7 +51,7 @@ class TextForm(forms.Form):
 
 
 class CreateBlogForm(forms.ModelForm):
-    description = RichTextField()
+    # description = RichTextField()
     
     class Meta:
         model = Blog

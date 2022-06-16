@@ -1,11 +1,8 @@
-from gc import get_objects
-from multiprocessing import context
-from turtle import right
-from unicodedata import category
 from django.http import JsonResponse
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.core.paginator import PageNotAnInteger, EmptyPage, Paginator
 from django.views.generic import DetailView
 from .models import *
@@ -152,7 +149,7 @@ def blog_detail(request, slug):
                 blog = blog,
                 text = form.cleaned_data.get('text')
             )
-            return redirect('blog_detail', slug = slug)
+            return redirect(reverse('blog_detail', kwargs= {"slug": slug})+'#comments')
     context = {
         'blog' : blog,
         'form' : form,
@@ -237,7 +234,7 @@ def my_blogs(request):
 def update_blog(request, slug):
     blog = get_object_or_404(Blog, slug=slug)
     form = CreateBlogForm(instance=blog)
-
+    tags = ','.join([tag.title for tag in blog.tags.all()])
     if request.method == "POST":
         form = CreateBlogForm(request.POST, request.FILES, instance=blog)
         
@@ -279,7 +276,8 @@ def update_blog(request, slug):
 
     context = {
         "form": form,
-        "blog": blog
+        "blog": blog,
+        "tags": tags
     }
     return render(request, 'update_blog.html', context)
 
@@ -295,7 +293,7 @@ def add_reply(request, slug, comment_id):
                 comment = comment,
                 text = form.cleaned_data.get('text')
             )
-            return redirect('blog_detail', slug=slug)
+            return redirect(reverse('blog_detail', kwargs= {'slug': slug})+'#comments')
 
 @login_required(login_url='/')
 def like_blog(request, pk):

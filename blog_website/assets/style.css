@@ -1680,7 +1680,7 @@ hr.invis3 {
 
 .active{
     background-color: #000000 !important;
-    color: rgb(255, 255, 255);
+    color: rgb(255, 255, 255) !important;
 }
 
 .text-danger{
@@ -1739,4 +1739,46 @@ ul {
 .avatar-header {
 
     height: 2rem;
+}
+
+#like-count {
+    margin-right: 0.5rem;
+}
+
+.list-inline {
+    position: relative;
+}
+
+.list-inline li:last-child {
+    position: absolute;
+    right: 0;
+}
+
+.like-icon {
+    font-size: 1rem;
+}
+
+/* .django-ckeditor-widget{
+    width: 100% !important;
+} */
+
+.form-check-input {
+    margin-left: 0;
+}
+
+
+/* CSS login form */
+
+.form-outline {
+    position: relative;
+}
+
+/* .form-control-lg {
+    position: absolute;
+} */
+
+.form-label {
+    position: absolute;
+    left: 0;
+    top:0;
 }

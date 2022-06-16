@@ -1,6 +1,7 @@
 from django import forms
 from django.forms.forms import Form
 
+from ckeditor.fields import RichTextField
 
 from .models import User
 
@@ -47,13 +48,14 @@ class UserRegistrationForm(forms.ModelForm):
 
 
 class UserProfileUpdateForm(forms.ModelForm):
+    # description = RichTextField()
     def _init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-
+    
 
     class Meta:
         model = User
-        fields = ("first_name", "last_name", "username", "email", )
+        fields = ("first_name", "last_name", "username", "email", "description")
 
     def clean_username(self):
         username = self.cleaned_data.get('username')

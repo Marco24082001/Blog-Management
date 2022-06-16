@@ -9,8 +9,8 @@
                 <div class="page-wrapper">
                     <div class="blog-title-area">
                         <ol class="breadcrumb hidden-xs-down">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item"><a href="#">Blog</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'blog_list' %}">Blog</a></li>
                             <li class="breadcrumb-item active">{{blog.title}}</li>
                         </ol>
 
@@ -40,9 +40,9 @@
                         <div class="tag-cloud-single">
                             <span>Tags</span>
                             {% for tag in blog.tags.all %}
-                            <small><a href="#" title="">{{tag.title}}</a></small>
+                            <small><a href="{% url 'tag' tag.slug %}" title="">{{tag.title}}</a></small>
                             {% endfor %}
-                            <small><a href="#" title="">another tag</a></small>
+                            <small><a href="javascript:void(0)" title="">another tag</a></small>
                         </div><!-- end meta -->
                         {% if request.user.is_authenticated %}
                             <div class="post-sharing">
@@ -51,11 +51,10 @@
                                     <li><a href="#" class="tw-button btn btn-primary"><i class="fa fa-twitter"></i> <span class="down-mobile">Tweet on Twitter</span></a></li>
                                     <li><a href="#" class="gp-button btn btn-primary"><i class="fa fa-google-plus"></i></a></li>
                                     {% if liked %}
-                                        <li><a href="javascript:void(0);"><i class="fa fa-heart like-icon" blog-id="{{ blog.id }}"></i></a></li>
+                                        <li><span id="like-count">{{ blog.likes.count }}</span><a href="javascript:void(0);"><i class="fa fa-heart like-icon" blog-id="{{ blog.id }}"></i></a></li>
                                     {% else %}
-                                        <li><a href="javascript:void(0);"><i class="fa fa-heart empty-heart like-icon" blog-id="{{ blog.id }}"></i></a></li>
+                                        <li><span id="like-count">{{ blog.likes.count }}</span><a href="javascript:void(0);"><i class="fa fa-heart empty-heart like-icon" blog-id="{{ blog.id }}"></i></a></li>
                                     {% endif %}
-                                    <li id="like-count">{{ blog.likes.count }}</li>
                                 </ul>
                             </div><!-- end post-sharing -->
                         {% else %}
@@ -65,59 +64,17 @@
                                     <li><a href="#" class="tw-button btn btn-primary"><i class="fa fa-twitter"></i> <span class="down-mobile">Tweet on Twitter</span></a></li>
                                     <li><a href="#" class="gp-button btn btn-primary"><i class="fa fa-google-plus"></i></a></li>
                                     {% if liked %}
-                                        <li><a href="javascript:void(0);"><i class="fa fa-heart like-icon" blog-id="{{ blog.id }}"></i></a></li>
+                                        <li><span id="like-count">{{ blog.likes.count }}</span><a href="{% url 'login' %}"><i class="fa fa-heart like-icon" blog-id="{{ blog.id }}"></i></a></li>
                                     {% else %}
-                                        <li><a href="javascript:void(0);"><i class="fa fa-heart empty-heart like-icon" blog-id="{{ blog.id }}"></i></a></li>
+                                        <li><span id="like-count">{{ blog.likes.count }}</span><a href="{% url 'login' %}"><i class="fa fa-heart empty-heart like-icon" blog-id="{{ blog.id }}"></i></a></li>
                                     {% endif %}
-                                    <li id="like-count">{{ blog.likes.count }}</li>
+                                    
                                 </ul>
                             </div><!-- end post-sharing -->
                         {% endif %}
                     </div><!-- end title -->
 
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="banner-spot clearfix">
-                                <div class="banner-img">
-                                    <img src="upload/banner_01.jpg" alt="" class="img-fluid">
-                                </div><!-- end banner-img -->
-                            </div><!-- end banner -->
-                        </div><!-- end col -->
-                    </div><!-- end row -->
-
                     <hr class="invis1">
-
-                    <div class="custombox prevnextpost clearfix">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="blog-list-widget">
-                                    <div class="list-group">
-                                        <a href="single.html" class="list-group-item list-group-item-action flex-column align-items-start">
-                                            <div class="w-100 justify-content-between text-right">
-                                                <img src="upload/blog_square_02.jpg" alt="" class="img-fluid float-right">
-                                                <h5 class="mb-1">5 Beautiful buildings you need to before dying</h5>
-                                                <small>Prev Post</small>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div><!-- end col -->
-
-                            <div class="col-lg-6">
-                                <div class="blog-list-widget">
-                                    <div class="list-group">
-                                        <a href="single.html" class="list-group-item list-group-item-action flex-column align-items-start">
-                                            <div class="w-100 justify-content-between">
-                                                <img src="upload/blog_square_03.jpg" alt="" class="img-fluid float-left">
-                                                <h5 class="mb-1">Let's make an introduction to the glorious world of history</h5>
-                                                <small>Next Post</small>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div><!-- end col -->
-                        </div><!-- end row -->
-                    </div><!-- end author-box -->
 
                     <hr class="invis1">
 
@@ -130,7 +87,7 @@
 
                             <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
                                 <h4><a href="#">{{blog.user.username}}</a></h4>
-                                <p>Quisque sed tristique felis. Lorem <a href="#">visit my website</a> amet, consectetur adipiscing elit. Phasellus quis mi auctor, tincidunt nisl eget, finibus odio. Duis tempus elit quis risus congue feugiat. Thanks for stop Cloapedia!</p>
+                                <p>{{blog.user.description|safe|linebreaks}}</p>
 
                                 <div class="topsocial">
                                     <a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i class="fa fa-facebook"></i></a>
@@ -147,7 +104,7 @@
 
                     <hr class="invis1">
 
-                    <div class="custombox clearfix">
+                    {% comment %} <div class="custombox clearfix">
                         <h4 class="small-title">You may also like</h4>
                         <div class="row">
                             <div class="col-lg-6">
@@ -186,7 +143,7 @@
                                 </div><!-- end blog-box -->
                             </div><!-- end col -->
                         </div><!-- end row -->
-                    </div><!-- end custom-box -->
+                    </div><!-- end custom-box --> {% endcomment %}
 
                     <hr class="invis1">
 
@@ -194,14 +151,14 @@
                         <h4 class="small-title">{{ blog.blog_comments.count }} Comments</h4>
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="comments-list">
-                                    {% for comment in blog.blog_comments.all %}
+                                <div class="comments-list" id="comments">
+                                    {% for comment in blog.blog_comments.all|slice:"::-1" %}
                                     <div class="media">
                                         <a class="media-left" href="#">
                                             <img src="{{ comment.user.get_profile_picture}}" alt="" class="rounded-circle">
                                         </a>
                                         <div class="media-body">
-                                            <h4 class="media-heading user_name">{{ comment.user.username }}<small>{{ comment.created_date }}</small></h4>
+                                            <h4 class="media-heading user_name">{{ comment.user.username }}<small>{{ comment.created_date|timesince }}</small></h4>
                                             <p>{{ comment.text }}</p>
 
                                             <form class="form-wrapper" action="{% url 'add_reply' blog.slug comment.id %}" method="POST">

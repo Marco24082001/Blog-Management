@@ -1,6 +1,7 @@
+from pydoc import describe
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
+from ckeditor.fields import RichTextField
 from .managers import CustomUserManager
 
 
@@ -17,8 +18,8 @@ class User(AbstractUser):
         blank=True,
         upload_to="profile_images"
     )
-    followers = models.ManyToManyField("Follow")
-
+    followers = models.ManyToManyField("Follow", blank=True)
+    description = RichTextField()
     REQUIRED_FIELDS = ["email"]
     objects = CustomUserManager()
 
