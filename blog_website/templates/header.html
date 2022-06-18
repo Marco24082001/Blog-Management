@@ -20,22 +20,11 @@
             <div class="collapse navbar-collapse justify-content-md-center" id="cloapediamenu">
                 <ul class="navbar-nav">
                     <li class="nav-item d-flex">
-                        <a class="nav-link color-pink-hover align-self-center" href="{% url 'home' %}">Home</a>
+                        <a class="nav-link color-red-hover align-self-center" href="{% url 'home' %}">Home</a>
                     </li>
                     <li class="nav-item d-flex dropdown has-submenu hidden-md-down hidden-sm-down hidden-xs-down">
                         <a class="align-self-center nav-link dropdown-toggle " href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
                         <ul class="dropdown-menu megamenu" aria-labelledby="dropdown01">
-                            {% comment %} <li>
-                                <div class="mega-menu-content clearfix">
-                                    <div class="tab">
-                                        <button class="tablinks active" onclick="openCategory(event, 'cat01')">Beauty</button>
-                                        <button class="tablinks" onclick="openCategory(event, 'cat02')">Fashion</button>
-                                        <button class="tablinks" onclick="openCategory(event, 'cat03')">Travel</button>
-                                        <button class="tablinks" onclick="openCategory(event, 'cat04')">Architecture</button>
-                                        <button class="tablinks" onclick="openCategory(event, 'cat05')">Recipes</button>
-                                    </div>
-                                </div><!-- end mega-menu-content -->
-                            </li> {% endcomment %}
                             {% for category in categories %}
                             <li><a class="dropdown-item" href="{% url 'category' category.slug %}">{{category.title}}</a></li>
                             {% endfor %}

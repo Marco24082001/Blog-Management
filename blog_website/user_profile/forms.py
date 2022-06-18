@@ -46,8 +46,8 @@ class UserRegistrationForm(forms.ModelForm):
 
         return self.cleaned_data.get('password')
 
-    # def clean_profile_image(self):
-    #     return 'https://res.cloudinary.com/dnnxgyq06/image/upload/v1/media/profile_images/channels4_profile_oggw0q'
+    def clean_profile_image(self):
+        return 'media/profile_images/channels4_profile_oggw0q'
 
 class UserProfileUpdateForm(forms.ModelForm):
     # description = RichTextField()

@@ -137,7 +137,8 @@ def search_blogs(request):
 def blog_detail(request, slug):
     form = TextForm()
     blog = get_object_or_404(Blog, slug=slug)
-    liked = request.user in blog.likes.all()    
+    liked = request.user in blog.likes.all()
+
 
     if request.method == "POST" and request.user.is_authenticated:
         form = TextForm(request.POST)
@@ -150,6 +151,10 @@ def blog_detail(request, slug):
                 text = form.cleaned_data.get('text')
             )
             return redirect(reverse('blog_detail', kwargs= {"slug": slug})+'#comments')
+    else:
+        blog.view += 1
+        blog.save()
+
     context = {
         'blog' : blog,
         'form' : form,

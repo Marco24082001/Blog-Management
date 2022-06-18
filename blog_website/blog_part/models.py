@@ -72,7 +72,9 @@ class Blog(models.Model):
         return self.title
 
     def save(self, *args, **kwargs):
-        self.slug = generate_unique_slug(self, self.title)
+        if self._state.adding:
+            self.slug = generate_unique_slug(self, self.title)
+            super().save(*args, **kwargs)
         super().save(*args, **kwargs)
 
 class Comment(models.Model):
