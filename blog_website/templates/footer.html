@@ -8,7 +8,7 @@
                     <div class="blog-list-widget">
                         <div class="list-group">
                             {% for blog in recent_blogs %}
-                            <a href="single.html" class="list-group-item list-group-item-action flex-column align-items-start">
+                            <a href="{% url 'blog_detail' blog.slug %}" class="list-group-item list-group-item-action flex-column align-items-start">
                                 <div class="w-100 justify-content-between">
                                     <img src="{{blog.banner.url}}" alt="" class="img-fluid float-left">
                                     <h5 class="mb-1">{{blog.title}}</h5>
@@ -28,7 +28,7 @@
                     <div class="blog-list-widget">
                         <div class="list-group">
                             {% for blog in popular_blogs %}
-                            <a href="single.html" class="list-group-item list-group-item-action flex-column align-items-start">
+                            <a href="{% url 'blog_detail' blog.slug %}" class="list-group-item list-group-item-action flex-column align-items-start">
                                 <div class="w-100 justify-content-between">
                                     <img src="{{blog.banner.url}}" alt="" class="img-fluid float-left">
                                     <h5 class="mb-1">{{blog.title}}</h5>
@@ -53,7 +53,7 @@
                     <div class="link-widget">
                         <ul>
                             {% for category in categories %}
-                            <li><a href="#">{{category.title}}</a></li>
+                            <li><a href="{% url 'category' category.slug %}">{{category.title}}</a></li>
                             
                             {% endfor %}
                         </ul>

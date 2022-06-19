@@ -1,4 +1,5 @@
-from django.http import JsonResponse
+from email import message
+from django.http import HttpResponse, JsonResponse
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
@@ -37,6 +38,28 @@ def home(request):
     }
 
     return render(request, 'index.html', context)
+
+def report_blog(request, slug):
+    form = ReportForm()
+    if request.method == 'POST':
+        form = ReportForm(request.POST)
+        if form.is_valid():
+            cate = request.POST['catereport']
+            nd = request.POST['message']
+            rp = Report(
+                blog = Blog.objects.get(slug = slug),
+                category = CateReport.objects.get(id = cate),
+                message = nd
+            )
+            rp.save()
+            return redirect(reverse('blog_detail', kwargs= {"slug": slug})+'#comments')
+            # return HttpResponse(f'ddax to cao {slug}, {cate}, {nd}')
+    context =  {
+        'tf' : form,
+        'slug': slug
+    }
+    return render(request, 'report.html', context)
+
 
 def category_blogs(request, slug):
     category = get_object_or_404(Category, slug=slug)

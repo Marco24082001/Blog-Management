@@ -110,3 +110,20 @@ class Reply(models.Model):
 
     def __str__(self) -> str:
         return self.text
+    
+
+class CateReport(models.Model):
+    name = models.CharField(max_length=200)
+    create_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.name
+    
+class Report(models.Model):
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE )
+    category = models.ForeignKey(CateReport, on_delete=models.CASCADE)
+    message = models.CharField(max_length=200)
+    create_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self) -> str:
+        return self.blog.title
