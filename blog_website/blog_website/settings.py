@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-o)6$+i3uoi4hza0ir^0_-z$@q@r8%lpq#g@5+!(e!k=6!+6)y8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -38,14 +38,23 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'blog_part',
     'notification',
     'user_profile',
     'cloudinary_storage',
     'cloudinary',
     'ckeditor',
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    'allauth.socialaccount.providers.google',
+    # 'allauth.socialaccount.providers.facebook',
 ]
 
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -75,6 +84,14 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 WSGI_APPLICATION = 'blog_website.wsgi.application'
@@ -144,3 +161,18 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': 'VkW6Dykk8KJxbpdd7PYPUb0MrO4'
 }
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
+# 1009921267550-pcn8ac27a67u0vnuam4dagt8fur2ohr0.apps.googleusercontent.com
+# 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
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
