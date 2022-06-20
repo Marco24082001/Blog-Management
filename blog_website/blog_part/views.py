@@ -1,4 +1,5 @@
-from django.http import JsonResponse
+from email import message
+from django.http import HttpResponse, JsonResponse
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect, render
@@ -127,13 +128,6 @@ def search_blogs(request):
     else:
         return redirect('home')
 
-# class BlogDetailView(DetailView):
-#     model = Blog
-#     template_name = 'detail_blog.html'
-#     context_object_name = 'blog'
-#     # def get_object(self, query_set=None):
-#     #     return Blog.objects.get(slug=self.kwargs.get('slug'))
-
 def blog_detail(request, slug):
     form = TextForm()
     blog = get_object_or_404(Blog, slug=slug)
@@ -201,6 +195,28 @@ def create_blog(request):
         "form": form
     }
     return render(request, 'create_blog.html', context)
+
+def report_blog(request, slug):
+    form = ReportForm()
+    if request.method == 'POST':
+        form = ReportForm(request.POST)
+        if form.is_valid():
+            cate = request.POST['catereport']
+            nd = request.POST['message']
+            rp = Report(
+                user = request.user,
+                blog = Blog.objects.get(slug = slug),
+                category = CateReport.objects.get(id = cate),
+                message = nd
+            )
+            rp.save()
+            return redirect(reverse('blog_detail', kwargs= {"slug": slug}))
+            # return HttpResponse(f'ddax to cao {slug}, {cate}, {nd}')
+    context =  {
+        'tf' : form,
+        'slug': slug
+    }
+    return render(request, 'report.html', context)
 
 def detete_blog(request, slug):
     blog = get_object_or_404(Blog, slug=slug)
