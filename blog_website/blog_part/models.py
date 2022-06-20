@@ -120,7 +120,8 @@ class CateReport(models.Model):
         return self.name
     
 class Report(models.Model):
-    blog = models.ForeignKey(Blog, on_delete=models.CASCADE )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default= 1)
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
     category = models.ForeignKey(CateReport, on_delete=models.CASCADE)
     message = models.CharField(max_length=200)
     create_at = models.DateTimeField(auto_now_add=True)
