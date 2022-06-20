@@ -1,4 +1,2 @@
 env
-blog_website/media
 __pycache__
-*.sqlite3
