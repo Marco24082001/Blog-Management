@@ -3,7 +3,7 @@ from django import forms
 
 from user_profile.models import User
 
-from .models import Blog, Category
+from .models import Blog, CateReport, Category
 
 from ckeditor.fields import RichTextField
 
@@ -45,6 +45,14 @@ from ckeditor.fields import RichTextField
 # print(cate)
 
         
+choicee = []
+for i in CateReport.objects.all():
+    # if (i.parent != None):
+        choicee.append((i.id, i.name))
+
+class ReportForm(forms.Form):
+    catereport = forms.ChoiceField(choices=choicee)
+    message = forms.CharField(max_length=250, required=True)
 
 class TextForm(forms.Form):
     text = forms.CharField(widget=forms.Textarea, required=True)
