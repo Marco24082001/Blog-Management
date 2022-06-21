@@ -14,13 +14,13 @@
                     <li class="list-group-item">
                         {% if notification.notification_types == 'Blog' or  notification.notification_types == 'Like'%}
                         <a class="text-decoration-none text-dark" href="{% url 'blog_detail' notification.content_object.slug %}">
-                            <p>{{notification.text}}</p>
-                            <p>{{notification.created_date|timesince}} ago</p>
+                            <p class="notification">{{notification.text}}</p>
+                            <p class="notification">{{notification.created_date|timesince}} ago</p>
                         </a>
                         {% else %}
                         <a class="text-decoration-none text-dark" href="{% url 'user_information' notification.content_object.followed_by.username %}">
-                            <p>{{notification.text}}</p>
-                            <p>{{notification.created_date|timesince}} ago</p>
+                            <p class="notification">{{notification.text}}</p>
+                            <p class="notification">{{notification.created_date|timesince}} ago</p>
                         </a>
                         {% endif %}
                     </li>

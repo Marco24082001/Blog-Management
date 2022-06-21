@@ -66,12 +66,12 @@
           <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                   <div class="section-title">
-                      <h3 class="color-aqua"><a href="blog-category-01.html" title="">Lifestyle</a></h3>
+                      <h3 class="color-aqua"><a href="{% url 'category' "du-lich" %}" title="">Du lịch</a></h3>
                   </div><!-- end title -->
 
                   <div class="row">
                       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                          {% for blog in Lifestyle_blogs %}
+                          {% for blog in travel_blogs|slice:"0:2" %}
                           <div class="blog-box">
                               <div class="post-media">
                                   <a href="{% url 'blog_detail' blog.slug %}" title="">
@@ -84,8 +84,8 @@
                               <div class="blog-meta big-meta">
                                   <h4><a href="{% url 'blog_detail' blog.slug %}" title="">{{blog.title}}</a></h4>
                                   {% comment %} <p>{{blog.description|safe|truncatechars:20}}</p> {% endcomment %}
-                                  <small><a href="blog-category-01.html" title="">{{blog.category}}</a></small>
-                                  <small><a href="{% url 'blog_detail' blog.slug %}" title="">{{blog.created_date}}</a></small>
+                                  <small><a href="{% url 'category' blog.category.slug %}" title="">{{blog.category}}</a></small>
+                                  <small><a href="javascript:void(0)" title="">{{blog.created_date}}</a></small>
                                   <small><a href="{% url 'user_information' blog.user.username%}" title="">by {{blog.user.username}}</a></small>
                               </div><!-- end meta -->
                           </div><!-- end blog-box -->
@@ -98,13 +98,13 @@
 
               <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                   <div class="section-title">
-                      <h3 class="color-pink"><a href="blog-category-01.html" title="">Fashion</a></h3>
+                      <h3 class="color-pink"><a href="{% url 'category' "giao-duc" %}" title="">Giáo dục</a></h3>
                   </div><!-- end title -->
                   <div class="row">
                       
                       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                         {% comment %} {% for blog in Fashion_blogs|slice:"0: 2%}   {% endcomment %}
-                        {% for blog in Fashion_blogs|slice:"0:2" %}
+                        {% for blog in education_blogs|slice:"0:2" %}
                         <div class="blog-box">
                               <div class="post-media">
                                   <a href="{% url 'blog_detail' blog.slug %}" title="">
@@ -115,9 +115,9 @@
                                   </a>
                               </div><!-- end media -->
                               <div class="blog-meta">
-                                  <h4><a href="{% url 'blog_detail' blog.slug %}" title="">{{blog.title}}</a></h4>
-                                  <small><a href="blog-category-01.html" title="">{{blog.category}}</a></small>
-                                  <small><a href="blog-category-01.html" title="">{{blog.created_date}}</a></small>
+                                  <h4><a href="{% url 'blog_detail' blog.slug %}" title="">{{blog.title|truncatechars:45}}</a></h4>
+                                  <small><a href="{% url 'category' blog.category.slug %}" title="">{{blog.category}}</a></small>
+                                  <small><a href="javascript:void(0)" title="">{{blog.created_date}}</a></small>
                               </div><!-- end meta -->
                           </div><!-- end blog-box -->
 
@@ -126,7 +126,7 @@
                       </div><!-- end col -->
 
                       <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                          {% for blog in Fashion_blogs|slice:"2:4" %}
+                          {% for blog in education_blogs|slice:"2:4" %}
                           <div class="blog-box">
                             <div class="post-media">
                                 <a href="{% url 'blog_detail' blog.slug %}" title="">
@@ -137,7 +137,7 @@
                                 </a>
                             </div><!-- end media -->
                             <div class="blog-meta">
-                                <h4><a href="{% url 'blog_detail' blog.slug %}" title="">{{blog.title}}</a></h4>
+                                <h4><a href="{% url 'blog_detail' blog.slug %}" title="">{{blog.title|truncatechars:45}}</a></h4>
                                 <small><a href="blog-category-01.html" title="">{{blog.category}}</a></small>
                                 <small><a href="blog-category-01.html" title="">{{blog.created_date}}</a></small>
                             </div><!-- end meta -->
@@ -158,9 +158,9 @@
               <div class="col-lg-8">
                   <div class="blog-list clearfix">
                       <div class="section-title">
-                          <h3 class="color-green"><a href="blog-category-01.html" title="">Travel</a></h3>
+                          <h3 class="color-green"><a href="{% url 'category' "cong-nghe" %}" title="">Công nghệ</a></h3>
                       </div><!-- end title -->
-                      {% for blog in Travel_blogs %}
+                      {% for blog in technology_blogs|slice:"0:2" %}
                       <div class="blog-box row">
                           <div class="col-md-4">
                               <div class="post-media">
@@ -174,8 +174,8 @@
                           <div class="blog-meta big-meta col-md-8">
                               <h4><a href="{% url 'blog_detail' blog.slug %}" title="">{{blog.title}}</a></h4>
                               <p>{{blog.description|safe|truncatechars:20}}</p>
-                              <small><a href="blog-category-01.html" title="">{{blog.category}}</a></small>
-                              <small><a href="{% url 'blog_detail' blog.slug %}" title="">{{blog.created_date}}</a></small>
+                              <small><a href="{% url 'category' blog.category.slug %}" title="">{{blog.category}}</a></small>
+                              <small><a href="javascript:void(0)" title="">{{blog.created_date}}</a></small>
                               <small><a href="{% url 'user_information' blog.user.username%}" title="">by {{blog.user.username}}</a></small>
                           </div><!-- end meta -->
                       </div><!-- end blog-box -->
@@ -188,13 +188,13 @@
 
                   <div class="blog-list clearfix">
                     <div class="section-title">
-                        <h3 class="color-red"><a href="blog-category-01.html" title="">Travel</a></h3>
+                        <h3 class="color-red"><a href="{% url 'category' "the-gioi" %}" title="">Thế giới</a></h3>
                     </div><!-- end title -->
-                    {% for blog in Travel_blogs %}
+                    {% for blog in world_blogs|slice:"0:2" %}
                     <div class="blog-box row">
                         <div class="col-md-4">
                             <div class="post-media">
-                                <a href="{% url 'blog_detail' blog.slug %}l" title="">
+                                <a href="{% url 'blog_detail' blog.slug %}" title="">
                                     <img src="{{blog.banner.url}}" alt="" class="img-fluid">
                                     <div class="hovereffect"></div>
                                 </a>
@@ -204,7 +204,7 @@
                         <div class="blog-meta big-meta col-md-8">
                             <h4><a href="{% url 'blog_detail' blog.slug %}" title="">{{blog.title}}</a></h4>
                             <p>{{blog.description|safe|truncatechars:20}}</p>
-                            <small><a href="blog-category-01.html" title="">{{blog.category}}</a></small>
+                            <small><a href="{% url 'category' blog.category.slug %}" title="">{{blog.category}}</a></small>
                             <small><a href="{% url 'blog_detail' blog.slug %}" title="">{{blog.created_date}}</a></small>
                             <small><a href="{% url 'user_information' blog.user.username%}" title="">by {{blog.user.username}}</a></small>
                         </div><!-- end meta -->
@@ -219,9 +219,9 @@
                   {% comment %} <hr class="invis"> {% endcomment %}
 
                   <div class="section-title">
-                      <h3 class="color-grey"><a href="blog-category-01.html" title="">Health</a></h3>
+                      <h3 class="color-grey"><a href="{% url 'category' "phap-luat" %}" title="">Pháp luật</a></h3>
                   </div><!-- end title -->
-                  {% for blog in Health_blogs %}
+                  {% for blog in law_blogs|slice:"0:3" %}
                   <div class="blog-box">
                       <div class="post-media">
                           <a href="{% url 'blog_detail' blog.slug %}" title="">
@@ -233,8 +233,8 @@
                       </div><!-- end media -->
                       <div class="blog-meta">
                           <h4><a href="{% url 'blog_detail' blog.slug %}" title="">{{blog.title}}</a></h4>
-                          <small><a href="blog-category-01.html" title="">{{blog.category}}</a></small>
-                          <small><a href="blog-category-01.html" title="">{{blog.created_date}}</a></small>
+                          <small><a href="{% url 'category' blog.category.slug %}" title="">{{blog.category}}</a></small>
+                          <small><a href="javascript:void(0)" title="">{{blog.created_date}}</a></small>
                       </div><!-- end meta -->
                   </div><!-- end blog-box -->
 

@@ -43,8 +43,8 @@
                     {% for blog in user.user_blogs.all %}
                     <li class="list-group-item py-3">
                         <a href="{% url 'blog_detail' blog.slug %}" class="text-center">
-                            <p>{{blog.title}}</p>
-                            <p>{{blog.created_date}}</p>
+                            <p class="user-blog">{{blog.title}}</p>
+                            <p class="user-blog">{{blog.created_date}}</p>
                         </a>
                     </li>
                     {% endfor %}

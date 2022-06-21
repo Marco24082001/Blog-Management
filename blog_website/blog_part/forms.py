@@ -45,12 +45,13 @@ from ckeditor.fields import RichTextField
 # print(cate)
 
         
-choicee = []
-for i in CateReport.objects.all():
-    # if (i.parent != None):
-        choicee.append((i.id, i.name))
+
 
 class ReportForm(forms.Form):
+    choicee = []
+    for i in CateReport.objects.all():
+        # if (i.parent != None):
+        choicee.append((i.id, i.name))
     catereport = forms.ChoiceField(choices=choicee)
     message = forms.CharField(max_length=250, required=True)
 

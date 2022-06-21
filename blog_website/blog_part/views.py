@@ -18,23 +18,21 @@ def home(request):
     center_blogs = blogs[1:4]
     right_blog = blogs[4]
     
-    Lifestyle_blogs = blogs.filter(category__title__contains = 'LifeStyle')[:2]
-    Fashion_blogs = blogs.filter(category__title__contains = 'Fashion')[:4]
-    Travel_blogs = blogs.filter(category__title__contains = 'Travel')[:3]
-    Technology_blogs = blogs.filter(category__title__contains = 'Technology')[:3]
-    Food_blogs = blogs.filter(category__title__contains = 'Food & Drink')[:3]
-    Health_blogs = blogs.filter(category__title__contains = 'Health Beauty')[:3]
+    travel_blogs = blogs.filter(category__title__contains = 'Du lịch')
+    technology_blogs = blogs.filter(category__title__contains = 'Công nghệ')
+    education_blogs = blogs.filter(category__title__contains = 'Giáo dục')
+    law_blogs = blogs.filter(category__title__contains = 'Pháp luật')
+    world_blogs = blogs.filter(category__title__contains = 'Thế giới')
     
     context =  {
         'left_blog': left_blog,
         'right_blog': right_blog,
         'center_blogs': center_blogs,
-        'Lifestyle_blogs': Lifestyle_blogs,
-        'Fashion_blogs': Fashion_blogs,
-        'Travel_blogs': Travel_blogs,
-        'Technology_blogs': Technology_blogs,
-        'Food_blogs': Food_blogs,
-        'Health_blogs': Health_blogs
+        'travel_blogs': travel_blogs,
+        'technology_blogs': technology_blogs,
+        'education_blogs': education_blogs,
+        'law_blogs': law_blogs,
+        'world_blogs': world_blogs,
     }
 
     return render(request, 'index.html', context)
@@ -43,7 +41,7 @@ def category_blogs(request, slug):
     category = get_object_or_404(Category, slug=slug)
     queryset = category.category_blogs.all()
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, 6)
+    paginator = Paginator(queryset, 8)
     
     try:
         blogs = paginator.page(page)
@@ -63,7 +61,7 @@ def tag_blogs(request, slug):
     tag = get_object_or_404(Tag, slug=slug)
     queryset = tag.tag_blogs.all()
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, 6)
+    paginator = Paginator(queryset, 8)
     
     try:
         blogs = paginator.page(page)
@@ -82,7 +80,7 @@ def tag_blogs(request, slug):
 def blog_list(request):
     queryset = Blog.objects.order_by('-created_date')
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, 6)
+    paginator = Paginator(queryset, 8)
     try:
         blogs = paginator.page(page)
     except EmptyPage:
@@ -91,6 +89,23 @@ def blog_list(request):
         blogs = paginator.page(1)
         return redirect('blog')
 
+    context = {
+        'blogs': blogs
+    }
+    return render(request, 'blog_list.html', context)
+
+@login_required(login_url='login')
+def favorite_blog_list(request):
+    queryset = Blog.objects.filter(user__user_followers__followed_by=request.user).order_by('-created_date')
+    page = request.GET.get('page', 1)
+    paginator = Paginator(queryset, 8)
+    try:
+        blogs = paginator.page(page)
+    except EmptyPage:
+        blogs = paginator.page(1)
+    except PageNotAnInteger:
+        blogs = paginator.page(1)
+        return redirect('blog')
     context = {
         'blogs': blogs
     }
@@ -109,7 +124,7 @@ def search_blogs(request):
             Q(tags__title__icontains=search_key)
         ).distinct()
 
-        paginator = Paginator(queryset, 6)
+        paginator = Paginator(queryset, 8)
         try:
             blogs = paginator.page(page)
         except EmptyPage:
@@ -196,28 +211,6 @@ def create_blog(request):
     }
     return render(request, 'create_blog.html', context)
 
-def report_blog(request, slug):
-    form = ReportForm()
-    if request.method == 'POST':
-        form = ReportForm(request.POST)
-        if form.is_valid():
-            cate = request.POST['catereport']
-            nd = request.POST['message']
-            rp = Report(
-                user = request.user,
-                blog = Blog.objects.get(slug = slug),
-                category = CateReport.objects.get(id = cate),
-                message = nd
-            )
-            rp.save()
-            return redirect(reverse('blog_detail', kwargs= {"slug": slug}))
-            # return HttpResponse(f'ddax to cao {slug}, {cate}, {nd}')
-    context =  {
-        'tf' : form,
-        'slug': slug
-    }
-    return render(request, 'report.html', context)
-
 def detete_blog(request, slug):
     blog = get_object_or_404(Blog, slug=slug)
 
@@ -227,7 +220,7 @@ def detete_blog(request, slug):
 def my_blogs(request):
     queryset = request.user.user_blogs.all().order_by('-created_date')
     page = request.GET.get('page', 1)
-    paginator = Paginator(queryset, 6)
+    paginator = Paginator(queryset, 8)
 
     delete = request.GET.get('delete', None)
 
@@ -303,7 +296,7 @@ def update_blog(request, slug):
     return render(request, 'update_blog.html', context)
 
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def add_reply(request, slug, comment_id):
     if request.method == "POST":
         form = TextForm(request.POST)
@@ -316,7 +309,7 @@ def add_reply(request, slug, comment_id):
             )
             return redirect(reverse('blog_detail', kwargs= {'slug': slug})+'#comments')
 
-@login_required(login_url='/')
+@login_required(login_url='login')
 def like_blog(request, pk):
     context = {}
     blog = get_object_or_404(Blog, pk=pk)
@@ -332,3 +325,26 @@ def like_blog(request, pk):
         context['like_count'] = blog.likes.all().count()
     
     return JsonResponse(context, safe=False)
+
+
+def report_blog(request, slug):
+    form = ReportForm()
+    if request.method == 'POST':
+        form = ReportForm(request.POST)
+        if form.is_valid():
+            cate = request.POST['catereport']
+            nd = request.POST['message']
+            rp = Report(
+                user = request.user,
+                blog = Blog.objects.get(slug = slug),
+                category = CateReport.objects.get(id = cate),
+                message = nd
+            )
+            rp.save()
+            return redirect(reverse('blog_detail', kwargs= {"slug": slug}))
+            # return HttpResponse(f'ddax to cao {slug}, {cate}, {nd}')
+    context =  {
+        'tf' : form,
+        'slug': slug
+    }
+    return render(request, 'report.html', context)

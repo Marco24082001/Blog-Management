@@ -66,7 +66,7 @@ class Blog(models.Model):
     banner = models.ImageField(upload_to = 'blog_banner')
     description = RichTextField()
     view = models.IntegerField(default=0)
-    created_date = models.DateField(auto_now_add=True)
+    created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
         return self.title

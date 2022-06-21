@@ -20,7 +20,7 @@
 
                         <div class="blog-meta big-meta">
                             <small><a href="single.html" title="">{{blog.created_date}}</a></small>
-                            <small><a href="blog-author.html" title="">by {{blog.user.username}}</a></small>
+                            <small><a href="{% url 'user_information' blog.user.username%}" title="">by {{blog.user.username}}</a></small>
                             <small><a href="#" title=""><i class="fa fa-eye"></i> {{blog.view}}</a></small>
                         </div><!-- end meta -->
                     </div><!-- end title -->

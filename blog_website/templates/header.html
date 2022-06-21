@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="logo">
-                    <a href="{% url 'home' %}"><img src="{% static 'images/logo.png' %}" alt=""></a>
+                    <a href="{% url 'home' %}"><img src="{% static 'images/mylogo.png' %}" alt=""></a>
                 </div><!-- end logo -->
             </div>
         </div><!-- end row -->
@@ -32,14 +32,15 @@
                         </ul>
                     </li>
                     <li class="nav-item d-flex">
-                        <a class="nav-link color-pink-hover align-self-center" href="{% url 'blog_list' %}">Blogs</a>
+                        <a class="nav-link color-yellow-hover align-self-center" href="{% url 'blog_list' %}">Blogs</a>
                     </li>
-                    {% if user.is_authenticated %}
-                    {% comment %} <li class="nav-item d-flex">
-                        <a class="nav-link color-red-hover align-self-center" href="{% url 'profile' %}"><img src="{{ request.user.get_profile_picture }}" class="rounded-circle avatar-header" style="width: 2rem;" alt="Avatar" /></a>
-                    </li> {% endcomment %}
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item d-flex">
+                        <a class="nav-link color-pink-hover align-self-center" href="{% url 'favorite_blog_list' %}">Favorite</a>
+                    </li>
                     <li class="nav-item d-flex dropdown has-submenu hidden-md-down hidden-sm-down hidden-xs-down">
-                        <a class="align-self-center nav-link " id="dropdown01" href="{% url 'profile' %}"><img src="{{ request.user.get_profile_picture }}" class="rounded-circle avatar-header" style="width: 2rem;" alt="Avatar" /></a>
+                        <a class="align-self-center nav-link dropdown-toggle dropdown-custom " href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></a>
+                        {% comment %} <a class="align-self-center nav-link " id="dropdown01" href="{% url 'profile' %}"><img src="{{ request.user.get_profile_picture }}" class="rounded-circle avatar-header" style="width: 2rem;" alt="Avatar" /></a> {% endcomment %}
                         <ul class="dropdown-menu megamenu" aria-labelledby="dropdown01">
                             <li><a class="dropdown-item" href="{% url 'profile' %}">My Profile</a></li>
                             <li><a class="dropdown-item" href="{% url 'notification' %}">
